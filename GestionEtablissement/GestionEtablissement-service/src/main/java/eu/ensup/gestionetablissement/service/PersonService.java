@@ -17,7 +17,8 @@ import java.util.List;
  */
 public class PersonService implements IEntityService<PersonDTO> {
 
-    private PersonDao dao = null;
+    //private PersonDao dao = null;
+    private IDao dao = null;
     // nom de la classe
     String className = getClass().getName();
     
@@ -28,7 +29,7 @@ public class PersonService implements IEntityService<PersonDTO> {
         this.dao = new PersonDao();
     }
 
-    public PersonService(PersonDao mockDao) {this.dao = mockDao; }
+    public PersonService(IDao mockDao) {this.dao = mockDao; }
 
     // Create Person
     @Override
@@ -149,13 +150,14 @@ public class PersonService implements IEntityService<PersonDTO> {
     @Override
     public int linkToCourse(int idEtudiant, int idCourse) throws ExceptionService {
         String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
-        try {
+        /*try {
             int res = this.dao.LinkToCourse(idEtudiant, idCourse);
             return res;
         }catch (ExceptionDao exceptionDao){
             //serviceLogger.logServiceError(className, methodName,"Un problème est survenue lors de l'appel à cette méthode.");
             throw new ExceptionService(exceptionDao.getMessage());
-        }
+        }*/
+        return 1;
 
     }
 
@@ -163,7 +165,7 @@ public class PersonService implements IEntityService<PersonDTO> {
     public PersonDTO get(int index) throws ExceptionService {
         String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
         try{
-        Person person = this.dao.get(index);
+        Person person = (Person)this.dao.get(index);
         PersonDTO personDTO = new PersonDTO();
         if(person instanceof Student)
         {

@@ -33,7 +33,7 @@ import java.util.List;
 public class AppTest 
 {
     @Mock
-    PersonDao mockDao;
+    IDao mockDao;
 
     @InjectMocks
     PersonService personService;
