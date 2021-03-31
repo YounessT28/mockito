@@ -150,14 +150,13 @@ public class PersonService implements IEntityService<PersonDTO> {
     @Override
     public int linkToCourse(int idEtudiant, int idCourse) throws ExceptionService {
         String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
-        /*try {
+        try {
             int res = this.dao.LinkToCourse(idEtudiant, idCourse);
             return res;
         }catch (ExceptionDao exceptionDao){
             //serviceLogger.logServiceError(className, methodName,"Un problème est survenue lors de l'appel à cette méthode.");
             throw new ExceptionService(exceptionDao.getMessage());
-        }*/
-        return 1;
+        }
 
     }
 
