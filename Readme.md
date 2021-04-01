@@ -9,5 +9,4 @@ Clonez le projet
 > git clone https://github.com/YounessT28/mockito.git
 
 Lancez les commandes
-> mvn compile
 > mvn test
