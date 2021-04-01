@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface IDao<T>
 {
-    //final LoggerDao DaoLogger = new LoggerDao();
+    final LoggerDao DaoLogger = new LoggerDao();
 
     /**
      * list all T of the database.
@@ -60,8 +60,4 @@ public interface IDao<T>
      * @return the int
      */
     int delete(int index) throws ExceptionDao;
-
-    default int LinkToCourse(int entity, int course) throws ExceptionDao{
-        return 0;
-    }
 }

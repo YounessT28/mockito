@@ -7,12 +7,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import static eu.ensup.gestionetablissement.dao.Connect.openConnection;
+import static eu.ensup.gestionetablissement.dao.IDao.DaoLogger;
 
 
 /**
  * The type Dao login.
  */
-public class LoginDao {
+public class LoginDao implements ILoginDao {
     /**
      * The Connection.
      */
@@ -67,14 +68,14 @@ public class LoginDao {
 
             if (rs.next()) {
                 id = rs.getInt("id");
-                //DaoLogger.logDaoInfo(className, methodName,"L'utilisateur " + mail +  " authentifié");
+                DaoLogger.logDaoInfo(className, methodName,"L'utilisateur " + mail +  " authentifié");
             } else {
-               // DaoLogger.logDaoError(className, methodName,mail + " : Identifiant ou mot de passe incorrect.");
+                DaoLogger.logDaoError(className, methodName,mail + " : Identifiant ou mot de passe incorrect.");
                 throw new ExceptionDao("Identifiant ou mot de passe incorrect.");
             }
 
         } catch (SQLException throwables) {
-          //  DaoLogger.logDaoError(className, methodName,"Une erreur est survenue lors de la vérification du mot de passe de l'utilisateur.",throwables);
+            DaoLogger.logDaoError(className, methodName,"Une erreur est survenue lors de la vérification du mot de passe de l'utilisateur.",throwables);
             throw new ExceptionDao("Une erreur est survenue lors de la vérification du mot de passe de l'utilisateur.");
         }
         return id;

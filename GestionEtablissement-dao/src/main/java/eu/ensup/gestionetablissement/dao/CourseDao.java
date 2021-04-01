@@ -38,17 +38,17 @@ public class CourseDao implements ICourseDao
 			// TODO:  Add logger failed and successfull
 			if(allCourse.isEmpty())
 			{
-			//	DaoLogger.logDaoError(className, methodName,"Echec de récupération d'information concernant tous les Curs.");
+				DaoLogger.logDaoError(className, methodName,"Echec de récupération d'information concernant tous les Curs.");
 			}
 
-			//DaoLogger.logDaoInfo(className, methodName,"La récupération des informations concernant tous les cours a réussie.");
+			DaoLogger.logDaoInfo(className, methodName,"La récupération des informations concernant tous les cours a réussie.");
 			st.close();
 			cn.close();
 		}
 		catch (SQLException e) {
 
 			// TODO:  Add logger failed and successfull
-			//DaoLogger.logDaoError(className, methodName,"La transaction SELECT dans la méthode getAll a échouée.",e);
+			DaoLogger.logDaoError(className, methodName,"La transaction SELECT dans la méthode getAll a échouée.",e);
 			throw new ExceptionDao("Un problème est survenu au niveau de la base de donnée.");
 		}
 		finally{
@@ -59,7 +59,7 @@ public class CourseDao implements ICourseDao
 			catch(SQLException sqle) {
 
 				// TODO:  Add logger failed and successfull
-				//DaoLogger.logDaoError(className, methodName,"La transaction SELECT dans la méthode getAll a échouée.",sqle);
+				DaoLogger.logDaoError(className, methodName,"La transaction SELECT dans la méthode getAll a échouée.",sqle);
 				throw new ExceptionDao("Un problème est survenu au niveau de la base de donnée.");
 			}
 		}
@@ -82,19 +82,21 @@ public class CourseDao implements ICourseDao
 			res = st.executeQuery("SELECT * FROM Course WHERE id="+index);
 			if(!res.next()){
 				// TODO:  Add logger failed and successfull
-				//DaoLogger.logDaoError(className, methodName,"Echec de récupération d'information concernant le cours. Ce dernier n'existe pas en base de donnée.");
+				DaoLogger.logDaoError(className, methodName,"Echec de récupération d'information concernant le cours. Ce dernier n'existe pas en base de donnée.");
 				throw  new ExceptionDao("Le cours n'existe pas dans la base de donnée.");
 			}
-			while( res.next() )
-				cours = new Course(res.getString("coursesubject"),res.getFloat("nbhours"),res.getInt("id"));
+			else
+			{
+				cours = new Course(res.getString("coursesubject"), res.getFloat("nbhours"), res.getInt("id"));
 
-			// TODO:  Add logger failed and successfull
-			//DaoLogger.logDaoInfo(className, methodName,"Les information du cours " + res.getString("coursesubject") +" "+res.getFloat("nbhours") + "  ont été récupérer de la base de donnée.");
+				// TODO:  Add logger failed and successfull
+				DaoLogger.logDaoInfo(className, methodName, "Les information du cours " + res.getString("coursesubject") + " " + res.getFloat("nbhours") + "  ont été récupérer de la base de donnée.");
+			}
 		}
 		catch (SQLException e) {
 
 			// TODO:  Add logger failed and successfull
-			//DaoLogger.logDaoError(className, methodName,"La transaction SELECT dans la méthode get a échouée.",e);
+			DaoLogger.logDaoError(className, methodName,"La transaction SELECT dans la méthode get a échouée.",e);
 			throw new ExceptionDao("Un problème est survenu au niveau de la base de donnée.");
 		}
 		finally{
@@ -105,7 +107,7 @@ public class CourseDao implements ICourseDao
 			catch(SQLException sqle) {
 
 				// TODO:  Add logger failed and successfull
-			//	DaoLogger.logDaoError(className, methodName,"La transaction SELECT dans la méthode get a échouée.",sqle);
+				DaoLogger.logDaoError(className, methodName,"La transaction SELECT dans la méthode get a échouée.",sqle);
 				throw new ExceptionDao("Un problème est survenu au niveau de la base de donnée.");
 			}
 		}
@@ -129,16 +131,17 @@ public class CourseDao implements ICourseDao
 			if(!res.next()){
 
 				// TODO:  Add logger failed and successfull
-				//DaoLogger.logDaoInfo(className, methodName,"Le cours " + coursesubject+" "+ nbhours + " Le cours n'existe pas dans la base de donnée.");
+				DaoLogger.logDaoInfo(className, methodName,"Le cours " + coursesubject+" "+ nbhours + " Le cours n'existe pas dans la base de donnée.");
 				throw  new ExceptionDao("Le cours n'existe pas dans la base de donnée.");
 			}
-			while( res.next() )
+			else {
 				index = res.getInt("id");
+			}
 		}
 		catch (SQLException e) {
 
 			// TODO:  Add logger failed and successfull
-			//DaoLogger.logDaoError(className, methodName,"La transaction SELECT dans la méthode get a échouée.",e);
+			DaoLogger.logDaoError(className, methodName,"La transaction SELECT dans la méthode get a échouée.",e);
 			throw new ExceptionDao("Un problème est survenu au niveau de la base de donnée.");
 		}
 		finally{
@@ -149,7 +152,7 @@ public class CourseDao implements ICourseDao
 			catch(SQLException sqle) {
 
 				// TODO:  Add logger failed and successfull
-				//DaoLogger.logDaoError(className, methodName,"La transaction SELECT dans la méthode get a échouée.",sqle);
+				DaoLogger.logDaoError(className, methodName,"La transaction SELECT dans la méthode get a échouée.",sqle);
 				throw new ExceptionDao("Un problème est survenu au niveau de la base de donnée.");
 			}
 		}
@@ -182,18 +185,18 @@ public class CourseDao implements ICourseDao
 				pstmt.setFloat(index++, course.getNbHours());
 				
 				pstmt.execute();
-				//DaoLogger.logDaoInfo(className, methodName,"Le cours " + course.getCourseSubject() +" "+course.getNbHours() + " a été créé.");
+				DaoLogger.logDaoInfo(className, methodName,"Le cours " + course.getCourseSubject() +" "+course.getNbHours() + " a été créé.");
 			}else{
 
 				// TODO:  Add logger failed and successfull
-				//DaoLogger.logDaoInfo(className, methodName,"Le cours " + course.getCourseSubject() +" "+course.getNbHours() +" existe déja dans la base.");
+				DaoLogger.logDaoInfo(className, methodName,"Le cours " + course.getCourseSubject() +" "+course.getNbHours() +" existe déja dans la base.");
 				throw  new ExceptionDao("Ce cours existe déja!");
 			}
 		}
 		catch (SQLException e) {
 
 			// TODO:  Add logger failed and successfull
-			//DaoLogger.logDaoError(className, methodName,"Problème d'ajout d'une personne à la base de donnée.",e);
+			DaoLogger.logDaoError(className, methodName,"Problème d'ajout d'une personne à la base de donnée.",e);
 			throw new ExceptionDao("Un problème est survenu au niveau de la base de donnée.");
 		}
 		finally{
@@ -205,7 +208,7 @@ public class CourseDao implements ICourseDao
 			catch(SQLException sqle) {
 
 				// TODO:  Add logger failed and successfull
-			//	DaoLogger.logDaoError(className, methodName,"Problème d'ajout d'une personne à la base de donnée.",sqle);
+				DaoLogger.logDaoError(className, methodName,"Problème d'ajout d'une personne à la base de donnée.",sqle);
 				throw new ExceptionDao("Un problème est survenu au niveau de la base de donnée.");
 			}
 			res = 0;
@@ -235,12 +238,12 @@ public class CourseDao implements ICourseDao
 			try {
 				st = cn.createStatement();
 				st.execute("UPDATE Course SET "+update+" WHERE id="+course.getId());
-				//DaoLogger.logDaoInfo(className, methodName,"Les information du cours " + course.getCourseSubject() +" "+course.getNbHours() +" ont bien été modifié.");
+				DaoLogger.logDaoInfo(className, methodName,"Les information du cours " + course.getCourseSubject() +" "+course.getNbHours() +" ont bien été modifié.");
 			}
 			catch( SQLException sqle) {
 
 				// TODO:  Add logger failed and successfull
-				//DaoLogger.logDaoError(className, methodName,"Problème d'ajout d'une personne à la base de donnée.",sqle);
+				DaoLogger.logDaoError(className, methodName,"Problème d'ajout d'une personne à la base de donnée.",sqle);
 				throw new ExceptionDao("Un problème est survenu au niveau de la base de donnée.");
 			}
 			finally {
@@ -251,7 +254,7 @@ public class CourseDao implements ICourseDao
 				catch (SQLException throwables) {
 
 					// TODO:  Add logger failed and successfull
-					//DaoLogger.logDaoError(className, methodName,"Problème d'ajout d'une personne à la base de donnée.",throwables);
+					DaoLogger.logDaoError(className, methodName,"Problème d'ajout d'une personne à la base de donnée.",throwables);
 					throw new ExceptionDao("Un problème est survenu au niveau de la base de donnée.");
 				}
 				res = 0;
@@ -273,7 +276,7 @@ public class CourseDao implements ICourseDao
 			{
 				st = cn.createStatement();
 				st.execute("DELETE FROM Course WHERE id="+index);
-			//	DaoLogger.logDaoInfo(className, methodName,"La suppression du cours a réussie.");
+				DaoLogger.logDaoInfo(className, methodName,"La suppression du cours a réussie.");
 			}
 			catch (SQLException e) {
 				// TODO:  Add logger failed and successfull
@@ -291,7 +294,7 @@ public class CourseDao implements ICourseDao
 			}
 		}
 		if (res != 0) {
-			//DaoLogger.logDaoError(className, methodName,"Echec lors de la suppression du cours. Ce dernier n'existe pas dans la base de donnée.");
+			DaoLogger.logDaoError(className, methodName,"Echec lors de la suppression du cours. Ce dernier n'existe pas dans la base de donnée.");
 		}
 		
 		return res;

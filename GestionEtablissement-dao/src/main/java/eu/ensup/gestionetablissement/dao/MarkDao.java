@@ -39,17 +39,17 @@ public class MarkDao implements IMarkDao
             // TODO:  Add logger failed and successfull
             if(allMark.isEmpty())
             {
-               // DaoLogger.logDaoError(className, methodName,"Echec de récupération d'information concernant tous les Mark.");
+                DaoLogger.logDaoError(className, methodName,"Echec de récupération d'information concernant tous les Mark.");
             }
 
-         //   DaoLogger.logDaoInfo(className, methodName,"La récupération des informations concernant tous les mark a réussie.");
+            DaoLogger.logDaoInfo(className, methodName,"La récupération des informations concernant tous les mark a réussie.");
             st.close();
             cn.close();
         }
         catch (SQLException e) {
 
             // TODO:  Add logger failed and successfull
-       //     DaoLogger.logDaoError(className, methodName,"La transaction SELECT dans la méthode getAll a échouée.",e);
+            DaoLogger.logDaoError(className, methodName,"La transaction SELECT dans la méthode getAll a échouée.",e);
             throw new ExceptionDao("Un problème est survenu au niveau de la base de donnée.");
         }
 
@@ -73,14 +73,14 @@ public class MarkDao implements IMarkDao
                 allMark.add(new Mark(res.getInt("id"), res.getInt("idStudent"), res.getInt("idCourse"), res.getFloat("mark"), res.getString("assessment")));
 
             // TODO:  Add logger failed and successfull
-           // DaoLogger.logDaoInfo(className, methodName,"Les information " + index + " ont été récupérer de la base de donnée.");
+            DaoLogger.logDaoInfo(className, methodName,"Les information " + index + " ont été récupérer de la base de donnée.");
             st.close();
             cn.close();
         }
         catch (SQLException e) {
 
             // TODO:  Add logger failed and successfull
-       //     DaoLogger.logDaoError(className, methodName,"La transaction SELECT dans la méthode get a échouée.",e);
+            DaoLogger.logDaoError(className, methodName,"La transaction SELECT dans la méthode get a échouée.",e);
             throw new ExceptionDao("Un problème est survenu au niveau de la base de donnée.");
         }
 
@@ -102,7 +102,7 @@ public class MarkDao implements IMarkDao
             res = st.executeQuery("SELECT * FROM Mark WHERE id="+index);
             if(!res.next()){
                 // TODO:  Add logger failed and successfull
-          //      DaoLogger.logDaoError(className, methodName,"Echec de récupération d'information concernant le mark. Ce dernier n'existe pas en base de donnée.");
+                DaoLogger.logDaoError(className, methodName,"Echec de récupération d'information concernant le mark. Ce dernier n'existe pas en base de donnée.");
                 throw  new ExceptionDao("Le cours n'existe pas dans la base de donnée.");
             }
 
@@ -110,14 +110,14 @@ public class MarkDao implements IMarkDao
                 mark = new Mark(res.getInt("id"), res.getInt("idStudent"), res.getInt("idCourse"), res.getFloat("mark"), res.getString("assessment"));
 
             // TODO:  Add logger failed and successfull
-        //    DaoLogger.logDaoInfo(className, methodName,"Les information " + mark.toString() + " ont été récupérer de la base de donnée.");
+            DaoLogger.logDaoInfo(className, methodName,"Les information " + mark.toString() + " ont été récupérer de la base de donnée.");
             st.close();
             cn.close();
         }
         catch (SQLException e) {
 
             // TODO:  Add logger failed and successfull
-        //    DaoLogger.logDaoError(className, methodName,"La transaction SELECT dans la méthode get a échouée.",e);
+            DaoLogger.logDaoError(className, methodName,"La transaction SELECT dans la méthode get a échouée.",e);
             throw new ExceptionDao("Un problème est survenu au niveau de la base de donnée.");
         }
 
@@ -146,12 +146,12 @@ public class MarkDao implements IMarkDao
                 pstmt.setString(index++, mark.getAssessment());
 
                 pstmt.execute();
-            //    DaoLogger.logDaoInfo(className, methodName, mark.toString() + " a �t� cr��.");
+                DaoLogger.logDaoInfo(className, methodName, mark.toString() + " a �t� cr��.");
                 pstmt.close();
             }else{
 
                 // TODO:  Add logger failed and successfull
-            //    DaoLogger.logDaoInfo(className, methodName, mark.toString() +" existe d�ja dans la base.");
+                DaoLogger.logDaoInfo(className, methodName, mark.toString() +" existe d�ja dans la base.");
                 throw  new ExceptionDao("Cette note existe d�ja!");
             }
             cn.close();
@@ -159,7 +159,7 @@ public class MarkDao implements IMarkDao
         catch (SQLException e) {
 
             // TODO:  Add logger failed and successfull
-        //    DaoLogger.logDaoError(className, methodName,"Problème d'ajout d'une note � la base de donnée.",e);
+            DaoLogger.logDaoError(className, methodName,"Problème d'ajout d'une note � la base de donnée.",e);
             throw new ExceptionDao("Un problème est survenu au niveau de la base de donnée.");
         }
 
@@ -188,14 +188,14 @@ public class MarkDao implements IMarkDao
                 st = cn.createStatement();
                 st.execute("UPDATE Mark SET "+update+" WHERE id="+mark.getId());
 
-          //      DaoLogger.logDaoInfo(className, methodName,"Les information " + mark.toString() +" ont bien été modifié.");
+                DaoLogger.logDaoInfo(className, methodName,"Les information " + mark.toString() +" ont bien été modifié.");
                 st.close();
                 cn.close();
             }
             catch( SQLException sqle) {
 
                 // TODO:  Add logger failed and successfull
-           //     DaoLogger.logDaoError(className, methodName,"Probl�me de modification de la base de donn�e.",sqle);
+                DaoLogger.logDaoError(className, methodName,"Probl�me de modification de la base de donn�e.",sqle);
                 throw new ExceptionDao("Un problème est survenu au niveau de la base de donnée.");
             }
             finally {
@@ -220,7 +220,7 @@ public class MarkDao implements IMarkDao
                 st = cn.createStatement();
                 st.execute("DELETE FROM Mark WHERE id="+index);
 
-           //     DaoLogger.logDaoInfo(className, methodName,"La suppression de la note a réussie.");
+                DaoLogger.logDaoInfo(className, methodName,"La suppression de la note a réussie.");
                 st.close();
                 cn.close();
             }
@@ -230,7 +230,7 @@ public class MarkDao implements IMarkDao
             }
         }
         if (res != 0) {
-         //   DaoLogger.logDaoError(className, methodName,"Echec lors de la suppression de la note. Ce dernier n'existe pas dans la base de donnée.");
+            DaoLogger.logDaoError(className, methodName,"Echec lors de la suppression de la note. Ce dernier n'existe pas dans la base de donnée.");
         }
 
         return res;

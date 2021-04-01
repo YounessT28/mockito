@@ -1,27 +1,35 @@
 package eu.ensup.gestionetablissement.service;
 
-import eu.ensup.gestionetablissement.business.Course;
-import eu.ensup.gestionetablissement.dao.CourseDao;
-import eu.ensup.gestionetablissement.dto.CourseDTO;
-import eu.ensup.gestionetablissement.dao.ExceptionDao;
-import eu.ensup.gestionetablissement.mapper.CourseMapper;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import eu.ensup.gestionetablissement.business.Course;
+import eu.ensup.gestionetablissement.dao.CourseDao;
+import eu.ensup.gestionetablissement.dao.ExceptionDao;
+import eu.ensup.gestionetablissement.dao.ICourseDao;
+import eu.ensup.gestionetablissement.dto.CourseDTO;
+import eu.ensup.gestionetablissement.mapper.CourseMapper;
 
 /**
  * The type Course service.
  */
 public class CourseService implements ICourseService {
-    private CourseDao dao;    // nom de la classe
+    private ICourseDao dao;    // nom de la classe
+	/**
+	 * The Class name.
+	 */
 	String className = getClass().getName();
 
-    /**
-     * Instantiates a new Course service.
-     */
-    public CourseService() {
-        this.dao = new CourseDao();
+	/**
+	 * Instantiates a new Course service.
+	 */
+	public CourseService() {
+		this.dao = new CourseDao();
     }
+
+	public CourseService(ICourseDao idao) {
+		this.dao = idao;
+	}
 
     public List<CourseDTO> getAll() throws ExceptionService {
 		String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -91,14 +99,15 @@ public class CourseService implements ICourseService {
 		return ret;
 	}
 
-    /**
-     * Gets index.
-     *
-     * @param coursesubject the coursesubject
-     * @param nbhours       the nbhours
-     * @return the index
-     */
-    public int getIndex(String coursesubject, float nbhours) throws ExceptionDao {
+	/**
+	 * Gets index.
+	 *
+	 * @param coursesubject the coursesubject
+	 * @param nbhours       the nbhours
+	 * @return the index
+	 * @throws ExceptionDao the exception dao
+	 */
+	public int getIndex(String coursesubject, float nbhours) throws ExceptionDao {
         return this.dao.getIndex(coursesubject, nbhours);
     }
 }
