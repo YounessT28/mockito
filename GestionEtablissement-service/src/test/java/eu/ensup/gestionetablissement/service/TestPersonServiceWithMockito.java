@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RunWith(MockitoJUnitRunner.class)
-public class MockitoTest {
+public class TestPersonServiceWithMockito {
 
     @Mock
     IPersonDao mockDao;
@@ -39,7 +39,7 @@ public class MockitoTest {
     }
 
     @Test
-    public void testgetPerson() throws ExceptionDao, ExceptionService {
+    public void testDeletePerson() throws ExceptionDao, ExceptionService {
         Person personne = new Person("Eric", "e.chaumont@ensup.eu", "34 rue du général De Gaule 75001", "0641458596", "Chaumont", Role.STUDENT, "e.chaumont");
         when(mockDao.delete(6)).thenReturn(1);
         int delete = personService.delete(6);
