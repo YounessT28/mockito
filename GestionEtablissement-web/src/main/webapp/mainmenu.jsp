@@ -1,3 +1,4 @@
+<%@ page pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +15,7 @@
 
 
 <div class="container">
-    <h2 class="text-center"><a href="mainmenu.html">Gestion Etablissement</a></h2>
+    <h2 class="text-center"><a href="mainmenu.jsp">Gestion Etablissement</a></h2>
 	<div class="row justify-content-center">
 		<div class="col-12 col-md-8 col-lg-6 pb-5">
                     <form>
@@ -26,26 +27,26 @@
                             </div>
                             <div class="card-body p-3">
                                 <div class="text-center">
-                                    <input type="submit" value="Créer un étudiant" class="btn btn-outline-info btn-block rounded-0 py-2" formaction="creeretudiant.html">
+                                    <input type="submit" value="Creer un etudiant" class="btn btn-outline-info btn-block rounded-0 py-2" formaction="creeretudiant.jsp">
                                 </div>
                                 <div class="text-center">
-                                    <input type="submit" value="Gérer les étudiants" class="btn btn-outline-info btn-block rounded-0 py-2" formaction="gereretudiant.html">
+                                    <input type="submit" value="Gerer les etudiants" class="btn btn-outline-info btn-block rounded-0 py-2" formaction="gereretudiant.jsp">
                                 </div>
                                 <div class="text-center">
-                                    <input type="submit" value="Gérer les cours" class="btn btn-outline-info btn-block rounded-0 py-2" formaction="gerercours.html">
+                                    <input type="submit" value="Gerer les cours" class="btn btn-outline-info btn-block rounded-0 py-2" formaction="gerercours.jsp">
                                 </div>
                                 <div class="text-center">
-                                    <input type="submit" value="Statistiques" class="btn btn-outline-info btn-block rounded-0 py-2" formaction="statistiques.html">
+                                    <input type="submit" value="Statistiques" class="btn btn-outline-info btn-block rounded-0 py-2" formaction="statistiques.jsp">
                                 </div>
                                 <div class="text-center">
-                                    <input type="submit" value="Gérer les notes" class="btn btn-outline-info btn-block rounded-0 py-2" formaction="gerernotes.html">
+                                    <input type="submit" value="Gerer les notes" class="btn btn-outline-info btn-block rounded-0 py-2" formaction="gerernotes.jsp">
                                 </div>
                                 <div class="text-center">
-                                    <input type="submit" value="Liste des étudiants" class="btn btn-outline-info btn-block rounded-0 py-2" formaction="listeetudiant.html">
+                                    <input type="submit" value="Liste des etudiants" class="btn btn-outline-info btn-block rounded-0 py-2" formaction="liststudent" method="GET">
                                 </div>
                                 <BR>
                                 <div class="text-center">
-                                    <input type="submit" value="Déconnexion" class="btn btn-info btn-block rounded-0 py-2" formaction="index.html">
+                                    <input type="submit" value="Deconnexion" class="btn btn-info btn-block rounded-0 py-2" formaction="index.jsp">
                                 </div>
                             </div>
 

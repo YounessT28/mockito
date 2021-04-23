@@ -1,3 +1,4 @@
+<%@ page pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +17,7 @@
     <h2 class="text-center"><a href="mainmenu.jsp">Gestion Etablissement</a></h2>
 	<div class="row justify-content-center">
 		<div class="col-12 col-md-8 col-lg-6 pb-5">
-                    <form action="mainmenu.html" method="post">
+                    <form action="connexion" method="post">
                         <div class="card border-primary rounded-0">
                             <div class="card-header p-0">
                                 <div class="bg-info text-white text-center py-2">

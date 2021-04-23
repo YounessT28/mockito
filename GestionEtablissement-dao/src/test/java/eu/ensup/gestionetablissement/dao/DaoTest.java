@@ -30,6 +30,7 @@ import eu.ensup.gestionetablissement.business.Person;
  */
 public class DaoTest
 {
+    /*
     PersonDao daoPerson = new PersonDao();
     CourseDao daoCourse = new CourseDao();
 
@@ -158,7 +159,7 @@ public class DaoTest
         Course d = daoCourse.get(81);
         assertThat(c.getNbHours() ,equalTo(d.getNbHours()));
     }
-
+ */
 }
 
 /*
