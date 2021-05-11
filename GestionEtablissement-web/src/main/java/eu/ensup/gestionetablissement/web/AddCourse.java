@@ -37,8 +37,6 @@ public class AddCourse extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher dispatcher;
-        dispatcher = req.getRequestDispatcher("managecourse.jsp");
         //If nb hours is not numeric return msgbox
         try {
             float f = Float.parseFloat(req.getParameter("nbheures"));
@@ -47,11 +45,11 @@ public class AddCourse extends HttpServlet {
             CourseService cs = new CourseService();
             CourseDTO c = new CourseDTO(req.getParameter("theme"), f);
             cs.create(c);
+            req.setAttribute("message", "Le cours a bien été créé");
             resp.sendRedirect(req.getContextPath() + "/managecourse");
         } catch (ExceptionService es) {
-            dispatcher = req.getRequestDispatcher("error.jsp");
-            req.setAttribute("error", es.getMessage());
-            dispatcher.forward(req, resp);
+            req.setAttribute("message", es.getMessage());
+            resp.sendRedirect(req.getContextPath() + "/managecourse");
         }
 
     }

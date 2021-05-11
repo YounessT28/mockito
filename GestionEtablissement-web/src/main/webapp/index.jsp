@@ -41,7 +41,9 @@
                                         <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe" required>
                                     </div>
                                 </div>
-
+                                <% if (request.getAttribute("message") != null) {%>
+                                    <p> ${message} </p>
+                                <%}%>
                                 <div class="text-center">
                                     <input type="submit" value="Valider" class="btn btn-info btn-block rounded-0 py-2">
                                 </div>

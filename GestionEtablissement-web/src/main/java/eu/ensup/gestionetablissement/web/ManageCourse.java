@@ -34,8 +34,7 @@ public class ManageCourse extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher;
-        dispatcher = req.getRequestDispatcher("error.jsp");
-
+        dispatcher = req.getRequestDispatcher("gerercours.jsp");
         // Liste de cours
         CourseService cs = new CourseService();
         List<CourseDTO> courseList = new ArrayList();
@@ -44,9 +43,8 @@ public class ManageCourse extends HttpServlet {
                 courseList.add(p);
             }
             req.setAttribute("course", courseList);
-            dispatcher = req.getRequestDispatcher("gerercours.jsp");
         } catch (ExceptionService es) {
-            req.setAttribute("error", es.getMessage());
+            req.setAttribute("message", es.getMessage());
         }
 
         // Liste d'étudiants
@@ -59,11 +57,9 @@ public class ManageCourse extends HttpServlet {
                 }
             }
             req.setAttribute("person", personList);
-            dispatcher = req.getRequestDispatcher("gerercours.jsp");
         } catch (ExceptionService es) {
-            req.setAttribute("error", es.getMessage());
+            req.setAttribute("message", es.getMessage());
         }
-
         dispatcher.forward(req, resp);
     }
 

@@ -1,4 +1,7 @@
 <%@ page pageEncoding="UTF-8" %>
+<% if (session.getAttribute("email") == null) {
+    response.sendRedirect(request.getContextPath() + "/index.jsp");
+}%>
 <!DOCTYPE html>
 <html lang="en">
 <head>

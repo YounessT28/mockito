@@ -1,4 +1,7 @@
 <%@ page pageEncoding="UTF-8" %>
+<% if (session.getAttribute("email") == null) {
+    response.sendRedirect(request.getContextPath() + "/index.jsp");
+}%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,6 +27,9 @@
                 </div>
                 <div class="card-body p-3">
                     <!-- CREATION COURS -->
+                    <% if (request.getAttribute("message") != null) {%>
+                        <p> ${message} </p>
+                    <%}%>
                     <form action="addcourse" method="POST">
                         <p>Creer un cours</p>
                         <div class="form-group">

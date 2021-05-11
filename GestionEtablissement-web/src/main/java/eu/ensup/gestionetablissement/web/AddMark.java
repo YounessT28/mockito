@@ -2,11 +2,9 @@ package eu.ensup.gestionetablissement.web;
 
 import eu.ensup.gestionetablissement.business.Role;
 import eu.ensup.gestionetablissement.dto.CourseDTO;
+import eu.ensup.gestionetablissement.dto.MarkDTO;
 import eu.ensup.gestionetablissement.dto.PersonDTO;
-import eu.ensup.gestionetablissement.service.ConnectionService;
-import eu.ensup.gestionetablissement.service.CourseService;
-import eu.ensup.gestionetablissement.service.ExceptionService;
-import eu.ensup.gestionetablissement.service.PersonService;
+import eu.ensup.gestionetablissement.service.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -21,12 +19,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @WebServlet(
-        name = "AssociateCourse",
-        urlPatterns = "/associatecourse"
+        name = "AddMark",
+        urlPatterns = "/addmark"
 )
-public class AssociateCourse extends HttpServlet {
+public class AddMark extends HttpServlet {
 
-    public AssociateCourse() {
+    public AddMark() {
         super();
     }
 
@@ -40,15 +38,14 @@ public class AssociateCourse extends HttpServlet {
         int idCourse = Integer.parseInt(req.getParameter("selectcourse"));
         int idStudent = Integer.parseInt(req.getParameter("selectstudent"));
 
-        PersonService ps = new PersonService();
+        MarkService ps = new MarkService();
         try {
-            ps.linkToCourse(idStudent, idCourse);
-            req.setAttribute("message", "Le cours a été associé");
-            resp.sendRedirect(req.getContextPath() + "/managecourse");
+            ps.create(new MarkDTO( idStudent, idCourse, Float.parseFloat(req.getParameter("mark")), req.getParameter("appreciations")));
+            req.setAttribute("message", "La note a bien été ajouté");
+            resp.sendRedirect(req.getContextPath() + "/managemark");
         } catch (ExceptionService es) {
             req.setAttribute("message", es.getMessage());
-            resp.sendRedirect(req.getContextPath() + "/managecourse");
+            resp.sendRedirect(req.getContextPath() + "/managemark");
         }
-
     }
 }

@@ -1,4 +1,7 @@
 <%@ page pageEncoding="UTF-8" %>
+<% if (session.getAttribute("email") == null) {
+    response.sendRedirect(request.getContextPath() + "/index.jsp");
+}%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,7 +42,7 @@
                                     <input type="submit" value="Statistiques" class="btn btn-outline-info btn-block rounded-0 py-2" formaction="statistiques.jsp">
                                 </div>
                                 <div class="text-center">
-                                    <input type="submit" value="Gerer les notes" class="btn btn-outline-info btn-block rounded-0 py-2" formaction="gerernotes.jsp">
+                                    <input type="submit" value="Gerer les notes" class="btn btn-outline-info btn-block rounded-0 py-2" formaction="managemark" method="GET">
                                 </div>
                                 <div class="text-center">
                                     <input type="submit" value="Liste des etudiants" class="btn btn-outline-info btn-block rounded-0 py-2" formaction="liststudent" method="GET">

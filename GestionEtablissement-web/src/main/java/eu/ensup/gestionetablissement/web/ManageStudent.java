@@ -32,7 +32,7 @@ public class ManageStudent extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher;
-        dispatcher = req.getRequestDispatcher("error.jsp");
+        dispatcher = req.getRequestDispatcher("gereretudiant.jsp");
 
         PersonService ps = new PersonService();
         List<PersonDTO> personList = new ArrayList();
@@ -44,9 +44,8 @@ public class ManageStudent extends HttpServlet {
                 }
             }
             req.setAttribute("person", personList);
-            dispatcher = req.getRequestDispatcher("gereretudiant.jsp");
         } catch (ExceptionService es) {
-            req.setAttribute("error", es.getMessage());
+            req.setAttribute("message", es.getMessage());
         }
         dispatcher.forward(req, resp);
     }

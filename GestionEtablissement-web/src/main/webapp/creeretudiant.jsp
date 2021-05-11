@@ -1,4 +1,7 @@
 <%@ page pageEncoding="UTF-8" %>
+<% if (session.getAttribute("email") == null) {
+    response.sendRedirect(request.getContextPath() + "/index.jsp");
+}%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -80,7 +83,9 @@
                                         <input type="text" class="form-control" id="datenaissance" name="datenaissance" placeholder="Date de naissance MM-DD-YYYY" required>
                                     </div>
                                 </div>
-
+                                <% if (request.getAttribute("message") != null) {%>
+                                    <p> ${message} </p>
+                                <%}%>
                                 <div class="text-center">
                                     <input type="submit" value="Creer" class="btn btn-info btn-block rounded-0 py-2">
                                 </div>

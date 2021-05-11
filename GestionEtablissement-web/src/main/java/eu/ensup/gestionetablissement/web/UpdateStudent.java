@@ -39,45 +39,42 @@ public class UpdateStudent extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        /*
-        "firstname = ?, " +
-                    "lastname = ?, " +
-                    "address =  ?, "+
-                    "phone = ?, "+
-                    "role = ?, "+
-                    "password = ?, "+
-                    "dateofbirth = ?, "+
-                    "subjecttaught = ?, "+
-                    "average = ? "+
-                    "WHERE email = ?";
-         */
         RequestDispatcher dispatcher;
-        dispatcher = req.getRequestDispatcher("error.jsp");
+        String refererURI = null, posturi = null;
 
+        // Définition de l'url de renvoit en fonction de l'url précédent
         try {
-            //Create course with parameters
-            PersonService sp = new PersonService();
-            SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
-            Date auj = sdf.parse(req.getParameter("datenaissance"));
-            //String surname, String mail, String address, String phone, String firstname, String password, int role, Date dateofbirth, String subjectTaught, double average
-            sp.update(req.getParameter("nom"), req.getParameter("email"), req.getParameter("adresse"), req.getParameter("telephone"), req.getParameter("prenom"), req.getParameter("mdp"), 4, auj ,"", Double.parseDouble(req.getParameter("moyenne")));
-
-            String refererURI = new URI(req.getHeader("referer")).getPath();
+            refererURI = new URI(req.getHeader("referer")).getPath();
             if(refererURI.equals("/GestionEtablissement-web/updatestudentpage"))
             {
-                resp.sendRedirect(req.getContextPath() + "/liststudent");
+                posturi = "/liststudent";
             }
             else
             {
-                resp.sendRedirect(req.getContextPath() + "/managestudent");
+                posturi = "/managestudent";
             }
-        } catch (NumberFormatException | ParseException nfe) {
-            req.setAttribute("error","Un des paramètre n'a pas été enseigné");
-        } catch (ExceptionService es) {
-            req.setAttribute("error", es.getMessage());
-            dispatcher.forward(req, resp);
         } catch (URISyntaxException e) {
-            e.printStackTrace();
+            req.setAttribute("error", e.getMessage());
+            dispatcher = req.getRequestDispatcher("error.jsp");
+            dispatcher.forward(req, resp);
+        }
+
+
+        try {
+            PersonService sp = new PersonService();
+            SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+            Date auj = sdf.parse(req.getParameter("datenaissance"));
+
+            sp.update(req.getParameter("nom"), req.getParameter("email"), req.getParameter("adresse"), req.getParameter("telephone"), req.getParameter("prenom"), req.getParameter("mdp"), 4, auj ,"", Double.parseDouble(req.getParameter("moyenne")));
+
+            req.setAttribute("message","L'étudiant a bien été mis à jours");
+            resp.sendRedirect(req.getContextPath() + posturi);
+        } catch (NumberFormatException | ParseException nfe) {
+            req.setAttribute("message","Un des paramètre n'a pas été enseigné");
+            resp.sendRedirect(req.getContextPath() + posturi);
+        } catch (ExceptionService es) {
+            req.setAttribute("message", es.getMessage());
+            resp.sendRedirect(req.getContextPath() + posturi);
         }
 
     }

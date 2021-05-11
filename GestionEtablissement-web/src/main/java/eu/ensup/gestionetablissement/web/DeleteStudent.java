@@ -39,23 +39,32 @@ public class DeleteStudent extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher dispatcher;
         PersonService ps = new PersonService();
+        String refererURI = null;
+        String posturi = null;
+        // Définition de l'url de renvoit en fonction de l'url précédent
         try {
-            ps.delete(parseInt(req.getParameter("idsupprimer")));
-            String refererURI = new URI(req.getHeader("referer")).getPath();
+            refererURI = new URI(req.getHeader("referer")).getPath();
             if(refererURI.equals("/GestionEtablissement-web/liststudent"))
             {
-                resp.sendRedirect(req.getContextPath() + "/liststudent");
+                posturi = "/liststudent";
             }
             else
             {
-                resp.sendRedirect(req.getContextPath() + "/managestudent");
+                posturi = "/managestudent";
             }
-        } catch (ExceptionService | URISyntaxException es) {
-            req.setAttribute("error", es.getMessage());
+        } catch (URISyntaxException e) {
+            RequestDispatcher dispatcher;
             dispatcher = req.getRequestDispatcher("error.jsp");
-            dispatcher.forward(req, resp);
+        }
+        // Suppresion de l'étudiant
+        try {
+            ps.delete(parseInt(req.getParameter("idsupprimer")));
+            req.setAttribute("message", "L'étudiant a bien été supprimé");
+            resp.sendRedirect(req.getContextPath() + posturi);
+        } catch (ExceptionService es) {
+            resp.sendRedirect(req.getContextPath() + posturi);
+            req.setAttribute("message", es.getMessage());
         }
     }
 }
