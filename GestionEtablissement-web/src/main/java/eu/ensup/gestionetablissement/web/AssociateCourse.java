@@ -21,12 +21,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @WebServlet(
-        name = "AddCourse",
-        urlPatterns = "/addcourse"
+        name = "AssociateCourse",
+        urlPatterns = "/associatecourse"
 )
-public class AddCourse extends HttpServlet {
+public class AssociateCourse extends HttpServlet {
 
-    public AddCourse() {
+    public AssociateCourse() {
         super();
     }
 
@@ -39,14 +39,15 @@ public class AddCourse extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher;
         dispatcher = req.getRequestDispatcher("managecourse.jsp");
-        //If nb hours is not numeric return msgbox
-        try {
-            float f = Float.parseFloat(req.getParameter("nbheures"));
+        int idCourse = Integer.parseInt(req.getParameter("selectcourse"));
+        int idStudent = Integer.parseInt(req.getParameter("selectstudent"));
+        System.out.println("idCourse = " + idCourse);
+        System.out.println("idStudent = " + idStudent);
 
-            //Create course with parameters
-            CourseService cs = new CourseService();
-            CourseDTO c = new CourseDTO(req.getParameter("theme"), f);
-            cs.create(c);
+        PersonService ps = new PersonService();
+        try {
+            ps.linkToCourse(idStudent, idCourse);
+            System.out.println("Course associé");
             resp.sendRedirect(req.getContextPath() + "/managecourse");
         } catch (ExceptionService es) {
             dispatcher = req.getRequestDispatcher("error.jsp");

@@ -16,16 +16,15 @@
     <h2 class="text-center"><a href="mainmenu.jsp">Gestion Etablissement</a></h2>
 	<div class="row justify-content-center">
 		<div class="col-12 col-md-8 col-lg-6 pb-5">
-            <form>
-                <div class="card border-primary rounded-0">
-                    <div class="card-header p-0">
-                        <div class="bg-info text-white text-center py-2">
-                            <h3> Gerer un cours</h3>
-                        </div>
+            <div class="card border-primary rounded-0">
+                <div class="card-header p-0">
+                    <div class="bg-info text-white text-center py-2">
+                        <h3> Gerer un cours</h3>
                     </div>
-                    <div class="card-body p-3">
-                        <!-- CREATION COURS -->
-                        <form action="addcourse" method="POST">
+                </div>
+                <div class="card-body p-3">
+                    <!-- CREATION COURS -->
+                    <form action="addcourse" method="POST">
                         <p>Creer un cours</p>
                         <div class="form-group">
                             <div class="input-group mb-2">
@@ -43,25 +42,24 @@
                                 <input type="text" class="form-control" id="nbheures" name="nbheures" placeholder="Nombre d'heures" required>
                             </div>
                         </div>
-
                         <div class="text-center">
-                            <input type="submit" value="Creer" class="btn btn-info btn-block rounded-0 py-2" onclick="alert('Cours cree');">
+                            <input type="submit" value="Creer" class="btn btn-info btn-block rounded-0 py-2">
                         </div>
-                        </form>
-                        <!-- END CREATION COURS -->
-                        <BR>
-                        <!-- ASSOCIER COURS A ETUDIANT -->
+                    </form>
+                    <!-- END CREATION COURS -->
+                    <BR>
+                    <!-- ASSOCIER COURS A ETUDIANT -->
+                    <form action="associatecourse" method="POST">
                         <p>Associer un etudiant à un cours</p>
                         <div class="form-group">
                             <div class="input-group mb-2">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text"><i class="fa fa-user text-info"></i></div>
                                 </div>
-                                <select class="form-control">
-                                    <option>Math</option>
-                                    <option>Francais</option>
-                                    <option>Histoire</option>
-                                    <option>Anglais</option>
+                                <select name="selectstudent" id="selectstudent" class="form-control">
+                                    <c:forEach items="${person}" var="student">
+                                        <option value='<c:out value="${student.id}"/>'><c:out value="${student.lastname}"/> <c:out value="${student.firstname}"/></option>
+                                    </c:forEach>
                                 </select>
                             </div>
                         </div>
@@ -70,21 +68,20 @@
                                 <div class="input-group-prepend">
                                     <div class="input-group-text"><i class="fa fa-user text-info"></i></div>
                                 </div>
-                                <select class="form-control">
-                                    <option>Jean</option>
-                                    <option>Eren</option>
-                                    <option>Mikasa</option>
-                                    <option>Armin</option>
+                                <select name="selectcourse" id="selectcourse" class="form-control">
+                                    <c:forEach items="${course}" var="cours">
+                                        <option value='<c:out value="${cours.id}"/>'><c:out value="${cours.courseSubject}"/></option>
+                                    </c:forEach>
                                 </select>
                             </div>
                         </div>
                         <div class="text-center">
-                            <input type="submit" value="Associer" class="btn btn-info btn-block rounded-0 py-2" onclick="alert('Cours associe');">
+                            <input type="submit" value="Associer" class="btn btn-info btn-block rounded-0 py-2">
                         </div>
-                        <!-- ASSOCIER COURS A ETUDIANT -->
-                    </div>
+                    </form>
+                    <!-- ASSOCIER COURS A ETUDIANT -->
                 </div>
-            </form>
+            </div>
         </div>
 	</div>
 </div>

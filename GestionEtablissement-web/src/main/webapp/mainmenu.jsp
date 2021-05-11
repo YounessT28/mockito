@@ -33,7 +33,7 @@
                                     <input type="submit" value="Gerer les etudiants" class="btn btn-outline-info btn-block rounded-0 py-2" formaction="managestudent" method="GET">
                                 </div>
                                 <div class="text-center">
-                                    <input type="submit" value="Gerer les cours" class="btn btn-outline-info btn-block rounded-0 py-2" formaction="gerercours.jsp">
+                                    <input type="submit" value="Gerer les cours" class="btn btn-outline-info btn-block rounded-0 py-2" formaction="managecourse" method="GET">
                                 </div>
                                 <div class="text-center">
                                     <input type="submit" value="Statistiques" class="btn btn-outline-info btn-block rounded-0 py-2" formaction="statistiques.jsp">
