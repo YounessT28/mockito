@@ -13,7 +13,6 @@
 </head>
 <body>
 
-
 <div class="container">
   <h2 class="text-center"><a href="mainmenu.jsp">Gestion Etablissement</a></h2>
 	<div class="row justify-content-center">
@@ -49,8 +48,18 @@
                                         <td><c:out value="${student.mailAddress}"/></td>
                                         <td><c:out value="${student.address}"/></td>
                                         <td><c:out value="${student.phoneNumber}"/></td>
-                                        <td><button type="button" class="btn btn-primary">Modifier</button></td>
-                                        <td><button type="button" class="btn btn-danger">Supprimer</button></td>
+                                        <td>
+                                            <form action="updatestudentpage" method="POST">
+                                                <input type="submit" value="Modifier" class="btn btn-primary">
+                                                <input type="hidden" id="identifiant" name="identifiant" value='<c:out value="${student.id}"/>' />
+                                            </form>
+                                        </td>
+                                        <td>
+                                            <form action="deletestudent" method="POST">
+                                                <input type="submit" value="Supprimer" class="btn btn-danger">
+                                                <input type="hidden" id="idsupprimer" name="idsupprimer" value='<c:out value="${student.id}"/>' />
+                                            </form>
+                                        </td>
                                       </tr>
                                       </c:forEach>
                                     </tbody>

@@ -1,8 +1,10 @@
 package eu.ensup.gestionetablissement.web;
 
 import eu.ensup.gestionetablissement.business.Role;
+import eu.ensup.gestionetablissement.dto.CourseDTO;
 import eu.ensup.gestionetablissement.dto.PersonDTO;
 import eu.ensup.gestionetablissement.service.ConnectionService;
+import eu.ensup.gestionetablissement.service.CourseService;
 import eu.ensup.gestionetablissement.service.ExceptionService;
 import eu.ensup.gestionetablissement.service.PersonService;
 
@@ -19,12 +21,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @WebServlet(
-        name = "AddStudent",
-        urlPatterns = "/addstudent"
+        name = "AddCourse",
+        urlPatterns = "/addcourse"
 )
-public class AddStudent extends HttpServlet {
+public class AddCourse extends HttpServlet {
 
-    public AddStudent() {
+    public AddCourse() {
         super();
     }
 
@@ -36,18 +38,15 @@ public class AddStudent extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher;
-        dispatcher = req.getRequestDispatcher("gerercours.jsp");
+        dispatcher = req.getRequestDispatcher("creeretudiant.jsp");
+        //If nb hours is not numeric return msgbox
         try {
-            //Create course with parameters
-            PersonService sp = new PersonService();
+            float f = Float.parseFloat(req.getParameter("nbheures"));
 
-            SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
-            Date auj = sdf.parse(req.getParameter("datenaissance"));
-            // String surname, String mail, String address, String phone, String firstname, String password, int role, Date dateofbirth, String subjectTaught
-            sp.create(req.getParameter("nom"), req.getParameter("email"), req.getParameter("adresse"), req.getParameter("tel"), req.getParameter("prenom"), req.getParameter("mdp"), 4, auj ,"");
-        } catch (NumberFormatException | ParseException nfe) {
-            dispatcher = req.getRequestDispatcher("error.jsp");
-            req.setAttribute("fieldempty", "Un des paramètres à pas été renseigné");
+            //Create course with parameters
+            CourseService cs = new CourseService();
+            CourseDTO c = new CourseDTO(req.getParameter("theme"), f);
+            cs.create(c);
         } catch (ExceptionService es) {
             dispatcher = req.getRequestDispatcher("error.jsp");
             req.setAttribute("error", es.getMessage());

@@ -14,7 +14,7 @@
 <body>
 
 <div class="container">
-    <h2 class="text-center"><a href="mainmenu.jsp">Gestion Etablissement</a></h2>
+    <h2 class="text-center"><a href="#">Gestion Etablissement</a></h2>
 	<div class="row justify-content-center">
 		<div class="col-12 col-md-8 col-lg-6 pb-5">
                     <form action="connexion" method="post">

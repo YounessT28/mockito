@@ -13,18 +13,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(
-        name = "ListStudent",
-        urlPatterns = "/liststudent"
+        name = "ManageStudent",
+        urlPatterns = "/managestudent"
 )
-public class ListStudent extends HttpServlet {
+public class ManageStudent extends HttpServlet {
 
-    public ListStudent() {
+    public ManageStudent() {
         super();
     }
 
@@ -43,7 +44,7 @@ public class ListStudent extends HttpServlet {
                 }
             }
             req.setAttribute("person", personList);
-            dispatcher = req.getRequestDispatcher("listeetudiant.jsp");
+            dispatcher = req.getRequestDispatcher("gereretudiant.jsp");
         } catch (ExceptionService es) {
             req.setAttribute("error", es.getMessage());
         }
