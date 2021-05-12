@@ -3,7 +3,10 @@
 
 ## Pré-requis
 Version java : 15.0.2
-Profil à rajouter dans USER_HOME/.m2/settinges.xml
+
+## Accès db
+Configurez le profil ci-dessous dans USER_HOME/.m2/settings.xml
+![image](https://user-images.githubusercontent.com/76994842/117997537-55e23180-b343-11eb-8f90-42b9191cb7eb.png)
 
 ## Utilisation
 Clonez le projet
