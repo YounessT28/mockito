@@ -8,7 +8,7 @@ Version java : 15.0.2
 Clonez le projet
 > git clone https://github.com/YounessT28/mockito.git
 
-Depuis Intellij, lancez la commande
+Lancez la commande
 > mvn clean package tomcat7:run
 
 A noter que la base de données est stocké sur un serveur distant gratuit et met un peu de temps à répondre donc soyez patient :blush:
