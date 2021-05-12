@@ -1,18 +1,22 @@
 package eu.ensup.gestionetablissement.dao;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 /**
  * The type Connect.
  */
 public class Connect
 {
-	private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-	private static final String URL = "jdbc:mysql://mysql-gestionetablissement.alwaysdata.net:3306/gestionetablissement_ensup?serverTimezone=UTC";
-	private static final String USERNAME = "225269";
-	private static final String PASSWORD = "GestionEtablissement";
+
+
+
 
 	/**
 	 * Open an connention with the information in the class
@@ -21,19 +25,30 @@ public class Connect
 	 */
 	public static Connection openConnection() throws ExceptionDao
 	{
+		Properties prop = new Properties();
+
+		{
+			try {
+				prop = load(); } catch (IOException e) { }
+		}
+		String driver = prop.getProperty("db.driver");
+		String url = prop.getProperty("db.url");
+		String username = prop.getProperty("db.username");
+		String password = prop.getProperty("db.password");
+
 		Connection cn = null;
 		try
 		{
 			//Chargement du Driver
-			Class.forName(DRIVER);
+			Class.forName(driver);
 			//?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC
 			
 			//Récuperation de la connection
-			if( URL != null && USERNAME != null && PASSWORD != null )
-				cn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			if( url != null && username != null && password != null )
+				cn = DriverManager.getConnection(url, username, password);
 			
-			if( cn == null && URL != null )
-				cn = DriverManager.getConnection(URL);
+			if( cn == null && url != null )
+				cn = DriverManager.getConnection(url);
 
 			// TODO:  Add logger failed and successfull
 		}
@@ -43,5 +58,25 @@ public class Connect
 		}
 		
 		return cn;
+	}
+
+	public static Properties load() throws IOException, FileNotFoundException, IOException {
+		try (
+			InputStream input = new FileInputStream("GestionEtablissement-dao/target/classes/db.properties")) {
+
+			Properties prop = new Properties();
+
+			// load a properties file
+			prop.load(input);
+
+			// get the property value and print it out
+			System.out.println(prop.getProperty("db.url"));
+			System.out.println(prop.getProperty("db.user"));
+			System.out.println(prop.getProperty("db.password"));
+			return prop;
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			return null;
+		}
 	}
 }

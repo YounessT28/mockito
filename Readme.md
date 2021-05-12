@@ -3,6 +3,7 @@
 
 ## Pré-requis
 Version java : 15.0.2
+Profil à rajouter dans USER_HOME/.m2/settinges.xml
 
 ## Utilisation
 Clonez le projet
