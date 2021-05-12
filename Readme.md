@@ -12,6 +12,9 @@ Depuis Intellij, lancez la commande
 > mvn clean package tomcat7:run
 
 A noter que la base de données est stocké sur un serveur distant gratuit et met un peu de temps à répondre donc soyez patient :blush:
+Compte pour se connecter : 
+- id : root
+- mdp : root
 
 ## Fonctionnalités
 
