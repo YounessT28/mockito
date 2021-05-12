@@ -39,7 +39,7 @@
                                     <input type="submit" value="Gerer les cours" class="btn btn-outline-info btn-block rounded-0 py-2" formaction="managecourse" method="GET">
                                 </div>
                                 <div class="text-center">
-                                    <input type="submit" value="Statistiques" class="btn btn-outline-info btn-block rounded-0 py-2" formaction="statistiques.jsp">
+                                    <input type="submit" value="Statistiques" class="btn btn-outline-info btn-block rounded-0 py-2" formaction="stats" method="GET">
                                 </div>
                                 <div class="text-center">
                                     <input type="submit" value="Gerer les notes" class="btn btn-outline-info btn-block rounded-0 py-2" formaction="managemark" method="GET">
@@ -49,7 +49,7 @@
                                 </div>
                                 <BR>
                                 <div class="text-center">
-                                    <input type="submit" value="Deconnexion" class="btn btn-info btn-block rounded-0 py-2" formaction="index.jsp">
+                                    <input type="submit" value="Deconnexion" class="btn btn-info btn-block rounded-0 py-2" formaction="logout" method="GET">
                                 </div>
                             </div>
 

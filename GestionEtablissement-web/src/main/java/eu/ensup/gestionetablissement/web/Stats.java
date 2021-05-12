@@ -3,6 +3,7 @@ package eu.ensup.gestionetablissement.web;
 import eu.ensup.gestionetablissement.business.Role;
 import eu.ensup.gestionetablissement.dto.CourseDTO;
 import eu.ensup.gestionetablissement.dto.PersonDTO;
+import eu.ensup.gestionetablissement.dto.StudentDTO;
 import eu.ensup.gestionetablissement.service.ConnectionService;
 import eu.ensup.gestionetablissement.service.CourseService;
 import eu.ensup.gestionetablissement.service.ExceptionService;
@@ -18,42 +19,32 @@ import javax.swing.*;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @WebServlet(
-        name = "AssociateCourse",
-        urlPatterns = "/associatecourse"
+        name = "Stats",
+        urlPatterns = "/stats"
 )
-public class AssociateCourse extends HttpServlet {
+public class Stats extends HttpServlet {
 
-    public AssociateCourse() {
+    public Stats() {
         super();
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        RequestDispatcher dispatcher;
+        dispatcher = req.getRequestDispatcher("statistiques.jsp");
+        ManageStudent.listStudent(req, resp);
+        dispatcher.forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher dispatcher;
-        dispatcher = req.getRequestDispatcher("gerercours.jsp");
-        int idCourse = Integer.parseInt(req.getParameter("selectcourse"));
-        int idStudent = Integer.parseInt(req.getParameter("selectstudent"));
-
-        PersonService ps = new PersonService();
-        try {
-            ps.linkToCourse(idStudent, idCourse);
-            req.setAttribute("message", "Le cours a été associé");
-            ManageCourse.listCourse(req, resp);
-            ManageCourse.listStudent(req, resp);
-        } catch (ExceptionService es) {
-            req.setAttribute("message", es.getMessage());
-            ManageCourse.listCourse(req, resp);
-            ManageCourse.listStudent(req, resp);
-        }
-        dispatcher.forward(req, resp);
-
+        //
     }
+
+
 }

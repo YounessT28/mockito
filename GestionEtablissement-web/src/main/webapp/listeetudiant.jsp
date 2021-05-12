@@ -28,7 +28,9 @@
                                 </div>
                             </div>
                             <div class="card-body p-3">
-
+                            <% if (request.getAttribute("message") != null) {%>
+                                <p> ${message} </p>
+                            <%}%>
                                 <table class="table">
                                     <thead>
                                       <tr>

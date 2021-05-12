@@ -29,6 +29,9 @@
                                     <h3> Gestion d'un etudiant</h3>
                                 </div>
                             </div>
+                            <% if (request.getAttribute("message") != null) {%>
+                                <p> ${message} </p>
+                            <%}%>
                             <form action="updatestudent" method="POST">
                             <div class="card-body p-3">
                                 <div class="form-group">

@@ -30,6 +30,9 @@
                         </div>
                     </div>
                     <div class="card-body p-3">
+                    <% if (request.getAttribute("message") != null) {%>
+                        <p> ${message} </p>
+                    <%}%>
                         <div class="form-group">
                             <div class="input-group mb-2">
                                 <div class="input-group-prepend">

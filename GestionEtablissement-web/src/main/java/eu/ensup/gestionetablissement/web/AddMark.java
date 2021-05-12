@@ -35,6 +35,8 @@ public class AddMark extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        RequestDispatcher dispatcher;
+        dispatcher = req.getRequestDispatcher("gerernotes.jsp");
         int idCourse = Integer.parseInt(req.getParameter("selectcourse"));
         int idStudent = Integer.parseInt(req.getParameter("selectstudent"));
 
@@ -42,10 +44,13 @@ public class AddMark extends HttpServlet {
         try {
             ps.create(new MarkDTO( idStudent, idCourse, Float.parseFloat(req.getParameter("mark")), req.getParameter("appreciations")));
             req.setAttribute("message", "La note a bien été ajouté");
-            resp.sendRedirect(req.getContextPath() + "/managemark");
+            ManageMark.listCourse(req, resp);
+            ManageMark.listStudent(req, resp);
         } catch (ExceptionService es) {
+            ManageMark.listCourse(req, resp);
+            ManageMark.listStudent(req, resp);
             req.setAttribute("message", es.getMessage());
-            resp.sendRedirect(req.getContextPath() + "/managemark");
         }
+        dispatcher.forward(req, resp);
     }
 }

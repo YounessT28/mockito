@@ -1,9 +1,11 @@
 package eu.ensup.gestionetablissement.web;
 
 import eu.ensup.gestionetablissement.business.Role;
+import eu.ensup.gestionetablissement.dto.CourseDTO;
 import eu.ensup.gestionetablissement.dto.PersonDTO;
 import eu.ensup.gestionetablissement.dto.StudentDTO;
 import eu.ensup.gestionetablissement.service.ConnectionService;
+import eu.ensup.gestionetablissement.service.CourseService;
 import eu.ensup.gestionetablissement.service.ExceptionService;
 import eu.ensup.gestionetablissement.service.PersonService;
 
@@ -33,7 +35,6 @@ public class ManageStudent extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher;
         dispatcher = req.getRequestDispatcher("gereretudiant.jsp");
-
         PersonService ps = new PersonService();
         List<PersonDTO> personList = new ArrayList();
         int nbStudent = 0;
@@ -53,5 +54,21 @@ public class ManageStudent extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // Post
+    }
+
+    public static void listStudent(HttpServletRequest req, HttpServletResponse resp){
+        PersonService ps = new PersonService();
+        List<PersonDTO> personList = new ArrayList();
+        int nbStudent = 0;
+        try {
+            for(PersonDTO p : ps.getAll()){
+                if(p instanceof StudentDTO) {
+                    personList.add(p);
+                }
+            }
+            req.setAttribute("person", personList);
+        } catch (ExceptionService es) {
+            req.setAttribute("message", es.getMessage());
+        }
     }
 }

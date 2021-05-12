@@ -67,4 +67,34 @@ public class ManageCourse extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // Post
     }
+
+    public static void listCourse(HttpServletRequest req, HttpServletResponse resp){
+        // Liste de cours
+        CourseService cs = new CourseService();
+        List<CourseDTO> courseList = new ArrayList();
+        try {
+            for(CourseDTO p : cs.getAll()){
+                courseList.add(p);
+            }
+            req.setAttribute("course", courseList);
+        } catch (ExceptionService es) {
+            req.setAttribute("message", es.getMessage());
+        }
+    }
+
+    public static void listStudent(HttpServletRequest req, HttpServletResponse resp){
+        // Liste d'étudiants
+        PersonService ps = new PersonService();
+        List<PersonDTO> personList = new ArrayList();
+        try {
+            for(PersonDTO p : ps.getAll()){
+                if(p instanceof StudentDTO) {
+                    personList.add(p);
+                }
+            }
+            req.setAttribute("person", personList);
+        } catch (ExceptionService es) {
+            req.setAttribute("message", es.getMessage());
+        }
+    }
 }

@@ -47,11 +47,11 @@ public class UpdateStudent extends HttpServlet {
             refererURI = new URI(req.getHeader("referer")).getPath();
             if(refererURI.equals("/GestionEtablissement-web/updatestudentpage"))
             {
-                posturi = "/liststudent";
+                posturi = "listeetudiant.jsp";
             }
             else
             {
-                posturi = "/managestudent";
+                posturi = "gereretudiant.jsp";
             }
         } catch (URISyntaxException e) {
             req.setAttribute("error", e.getMessage());
@@ -59,24 +59,23 @@ public class UpdateStudent extends HttpServlet {
             dispatcher.forward(req, resp);
         }
 
-
+        dispatcher = req.getRequestDispatcher(posturi);
         try {
             PersonService sp = new PersonService();
             SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
             Date auj = sdf.parse(req.getParameter("datenaissance"));
 
             sp.update(req.getParameter("nom"), req.getParameter("email"), req.getParameter("adresse"), req.getParameter("telephone"), req.getParameter("prenom"), req.getParameter("mdp"), 4, auj ,"", Double.parseDouble(req.getParameter("moyenne")));
-
             req.setAttribute("message","L'étudiant a bien été mis à jours");
-            resp.sendRedirect(req.getContextPath() + posturi);
+            ManageStudent.listStudent(req, resp); // Recupere la list des étudiants
         } catch (NumberFormatException | ParseException nfe) {
+            ManageStudent.listStudent(req, resp); // Recupere la list des étudiants
             req.setAttribute("message","Un des paramètre n'a pas été enseigné");
-            resp.sendRedirect(req.getContextPath() + posturi);
         } catch (ExceptionService es) {
+            ManageStudent.listStudent(req, resp); // Recupere la list des étudiants
             req.setAttribute("message", es.getMessage());
-            resp.sendRedirect(req.getContextPath() + posturi);
         }
-
+        dispatcher.forward(req, resp);
     }
 }
 

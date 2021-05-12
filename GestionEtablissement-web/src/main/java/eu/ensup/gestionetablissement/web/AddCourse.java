@@ -3,6 +3,7 @@ package eu.ensup.gestionetablissement.web;
 import eu.ensup.gestionetablissement.business.Role;
 import eu.ensup.gestionetablissement.dto.CourseDTO;
 import eu.ensup.gestionetablissement.dto.PersonDTO;
+import eu.ensup.gestionetablissement.dto.StudentDTO;
 import eu.ensup.gestionetablissement.service.ConnectionService;
 import eu.ensup.gestionetablissement.service.CourseService;
 import eu.ensup.gestionetablissement.service.ExceptionService;
@@ -18,7 +19,9 @@ import javax.swing.*;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @WebServlet(
         name = "AddCourse",
@@ -37,6 +40,8 @@ public class AddCourse extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        RequestDispatcher dispatcher;
+        dispatcher = req.getRequestDispatcher("gerercours.jsp");
         //If nb hours is not numeric return msgbox
         try {
             float f = Float.parseFloat(req.getParameter("nbheures"));
@@ -46,11 +51,15 @@ public class AddCourse extends HttpServlet {
             CourseDTO c = new CourseDTO(req.getParameter("theme"), f);
             cs.create(c);
             req.setAttribute("message", "Le cours a bien été créé");
-            resp.sendRedirect(req.getContextPath() + "/managecourse");
+            ManageCourse.listCourse(req, resp);
+            ManageCourse.listStudent(req, resp);
         } catch (ExceptionService es) {
+            ManageCourse.listCourse(req, resp);
+            ManageCourse.listStudent(req, resp);
             req.setAttribute("message", es.getMessage());
-            resp.sendRedirect(req.getContextPath() + "/managecourse");
         }
-
+        dispatcher.forward(req, resp);
     }
+
+
 }
