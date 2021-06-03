@@ -1,16 +1,22 @@
-pipeline {
-	agent any
-	stages {
-		stage('Build') {
-			steps {
-				bat 'mvn clean package'
-			      }
-		 post   {
-                success {
+pipeline
+{
+    agent any
+    stages
+    {
+        stage('Build')
+        {
+            steps
+            {
+                sh 'mvn clean package'
+            }
+            post
+            {
+                success
+                {
                     junit '**/target/surefire-reports/*.xml'
-                        }
                 }
+            }
 
-		                }
-		}
-	}
+        }
+    }
+}
