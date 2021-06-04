@@ -30,5 +30,12 @@ pipeline
             }
 
         }
+        stage('Deploy') {
+            steps {
+            script {
+             deploy adapters: [tomcat9(credentialsId: 'manager', path: '/manager/text', url: 'http://vps-0c0ccce5.vps.ovh.net:8081')], contextPath: '/job9-youness', war: '**/*.war'
+            }
+            }
+        }
     }
 }
