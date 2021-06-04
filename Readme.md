@@ -1,3 +1,5 @@
+[![Build Status](https://dev.azure.com/youness281tab/youness281tab/_apis/build/status/YounessT28.mockito?branchName=azure-pipelines)](https://dev.azure.com/youness281tab/youness281tab/_build/latest?definitionId=1&branchName=azure-pipelines)
+
 # Gestion Etablissement
 
 
